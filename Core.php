@@ -16,6 +16,13 @@ require_once('../Classes/AppLogger.php');
 class HugeCore extends Core
 {
 
+    /*
+     * TODO:
+     *
+     * Handle errors with: set_error_handler to the Logger
+     *
+     * */
+
     public static $clientID;
     public static $clientSecret;
 
@@ -75,4 +82,6 @@ class HugeCore extends Core
 
 }
 
+set_error_handler(function() { /* ignore errors */ });
 HugeCore::Load();
+restore_error_handler();
