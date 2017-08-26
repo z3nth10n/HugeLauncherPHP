@@ -30,10 +30,18 @@ class HugeCore extends Core
 
     public static function Load()
     {
+        //Init logger
         AppLogger::$CurLogger = new AppLogger();
+
+        //Set error handler
+        parent::getInstance()->SetErrorHandler();
+
+        //Load keys
         $data = mysqli_fetch_assoc(Query::run("SELECT client_id, client_secret FROM hugelauncher_keys WHERE id='1'"));
         self::$clientID = $data["client_id"];
         self::$clientSecret = $data["client_secret"];
+
+        //Get actions
         self::getAction();
     }
 
@@ -82,6 +90,4 @@ class HugeCore extends Core
 
 }
 
-set_error_handler(function() { /* ignore errors */ });
 HugeCore::Load();
-restore_error_handler();
