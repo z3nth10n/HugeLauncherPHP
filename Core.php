@@ -34,7 +34,7 @@ class HugeCore extends Core
         AppLogger::$CurLogger = new AppLogger();
 
         //Set error handler
-        parent::getInstance()->SetErrorHandler();
+        //parent::getInstance()->SetErrorHandler();
 
         //Load keys
         $data = mysqli_fetch_assoc(Query::run("SELECT client_id, client_secret FROM hugelauncher_keys WHERE id='1'"));
@@ -75,6 +75,11 @@ class HugeCore extends Core
                                 AppLogger::$CurLogger->AddError("github_error");
                             else
                                 AppLogger::$CurLogger->AddParameter("data", $data);
+                            break;
+                        case "get-desc":
+                        case "get-tutorial": //Esto sera proximamente una peticion a la base de datos
+                            $lang = @$_GET["lang"];
+                            include(self::StrFormat("WIP/wipper.php{0}", "?action=".$_GET["action"].(isset($lang) ? "&lang=".$lang : "")));
                             break;
                         default:
                             self::Kill("[GET] Action '".$_GET["action"]."' not set!");
