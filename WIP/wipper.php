@@ -8,6 +8,9 @@
 
 include("../../Classes/Parsedown.php");
 
+if(!defined("LOADED_INCLUDED"))
+    include("../../Loader.php");
+
 $markDown = new Parsedown();
 
 ?>
@@ -28,7 +31,7 @@ $lang = isset($_GET["lang"]) ? $_GET["lang"] : "en";
 if(isset($action))
 {
     $name = substr($action, 4);
-    $markDown->text(file_get_contents(Core::StrFormat("Langs/{0}/{1}_{2}.md", ucfirst($name), $name, $lang)));
+    echo $markDown->text(file_get_contents(Core::StrFormat(Core::GetServerUrl()."/Langs/{0}/{1}_{2}.md", ucfirst($name), $name, $lang)));
 }
 
 ?>

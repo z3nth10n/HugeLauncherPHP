@@ -79,7 +79,10 @@ class HugeCore extends Core
                         case "get-desc":
                         case "get-tutorial": //Esto sera proximamente una peticion a la base de datos
                             $lang = @$_GET["lang"];
-                            include(self::StrFormat("WIP/wipper.php{0}", "?action=".$_GET["action"].(isset($lang) ? "&lang=".$lang : "")));
+                        //self::StrFormat(
+                            $url = self::StrFormat(Core::GetServerUrl()."/WIP/wipper.php{0}", "?action=".$_GET["action"].(isset($lang) ? "&lang=".$lang : ""));
+                            echo Core::GetRequest($url);
+                            //echo $url;
                             break;
                         default:
                             self::Kill("[GET] Action '".$_GET["action"]."' not set!");
